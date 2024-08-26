@@ -10,11 +10,18 @@ app.listen(PORT, () => {
 
 
 const getImage = async (req ,res) => {
-    
-const imageData = await fetch()
 
+try {
+  const response =  await fetch()
 
+if (!response.ok)
+    throw new Error('Failed to fetch image');
+}
+
+catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching the image');}
 
 }
 
-
+app.get('/image', getImage);
