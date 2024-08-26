@@ -1,4 +1,6 @@
 const express = require('express');
+const https = require('https');
+
 
 const app = express();
 
@@ -12,10 +14,12 @@ app.listen(PORT, () => {
 const getImage = async (req ,res) => {
 
 try {
-  const response =  await fetch()
+  const response =  https.get(apiUrl , (response) => {if (response.statusCode !== 200) {
+    res.status(response.statusCode).send('Failed to fetch image');
+    return;
+}})
 
-if (!response.ok)
-    throw new Error('Failed to fetch image');
+
 }
 
 catch (error) {
