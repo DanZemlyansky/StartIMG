@@ -1,43 +1,24 @@
-const express = require('express');
-const https = require('https');
+const searchBar = document.getElementById('searchBar');
+const searchBtn = document.getElementsByClassName('searchBtn');
+const resultContainer = document.getElementById('resultContainer');
 
-const baseURL='https://pixabay.com/api/'
+//initialize search query as empty string
+let searchQuery = '';
 
-const app = express();
+//handle the change in the input
+searchBar.oninput = (e) => {   
+    searchQuery = e.target.value;
+}
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-
-
-const getImage = async (req ,res) => {
-let data = {}; //expect object
+searchBtn[0].addEventListener('click' , async () => {
+//fetch stuff here
 try {
-  const response = 
-   https.get(`${baseURL}` , (res) => {
-    if (response.statusCode !== 200) {
-    res.status(response.statusCode).send('Failed to fetch image');
-    return;
-}
-
-
-res.on('data' , (chunk) => {
-    data = chunk;
-})
-//send data back with success code.
-res.on('end' , () => {res.status(200).send(data)})
-
-})
-
-
-}
-
-catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred while fetching the image');}
-
-}
-
-app.get('/image', getImage);
+    const res = await fetch('fetchUrl')
+    const data = await res.json();
+    if(data){
+        resultContainer.innerHTML += `<img class="image" src=${data.something} alt=${data.name}></img>`
+        }
+} catch (error) {
+    console.error('Error fetching data:', error);
+    resultContainer.innerHTML = '<p>Failed to load data. Please try again.</p>';
+}})
