@@ -1,6 +1,7 @@
 const express = require('express');
 const https = require('https');
 
+const baseURL='https://pixabay.com/api/'
 
 const app = express();
 
@@ -12,12 +13,23 @@ app.listen(PORT, () => {
 
 
 const getImage = async (req ,res) => {
-
+let data = {}; //expect object
 try {
-  const response =  https.get(apiUrl , (response) => {if (response.statusCode !== 200) {
+  const response = 
+   https.get(`${baseURL}` , (res) => {
+    if (response.statusCode !== 200) {
     res.status(response.statusCode).send('Failed to fetch image');
     return;
-}})
+}
+
+
+res.on('data' , (chunk) => {
+    data = chunk;
+})
+//send data back with success code.
+res.on('end' , () => {res.status(200).send(data)})
+
+})
 
 
 }
