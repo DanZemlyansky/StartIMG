@@ -13,7 +13,7 @@ searchBar.oninput = (e) => {
 searchBtn[0].addEventListener('click' , async () => {
 //fetch stuff here
 try {
-    const res = await fetch('fetchUrl')
+    const res = await fetch('fetchUrl/query')
     const data = await res.json();
     if(data){
         resultContainer.innerHTML += `<img class="image" src=${data.something} alt=${data.name}></img>`
@@ -22,3 +22,5 @@ try {
     console.error('Error fetching data:', error);
     resultContainer.innerHTML = '<p>Failed to load data. Please try again.</p>';
 }})
+
+document.onload
