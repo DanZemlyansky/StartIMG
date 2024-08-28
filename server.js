@@ -15,10 +15,23 @@ app.use(cors());
 const API_KEY = "42079125-1909400cd5615db78c9c2cb93";
 const baseURL = 'pixabay.com';
 
+const randomTerms = [
+    "apple", "banana", "cat", "dog", "elephant", "flower", "giraffe", "hat", "ice", "jacket",
+    "kite", "lion", "moon", "notebook", "orange", "penguin", "queen", "rose", "sun", "tree",
+    "umbrella", "violin", "whale", "xylophone", "yacht", "zebra", "airplane", "book", "car", "dance",
+    "engine", "fish", "grape", "house", "jelly", "key", "lamp", "mountain", "nut", "octopus",
+    "pencil", "quilt", "rocket", "star", "train", "unicorn", "vase", "window", "yarn", "zoo",
+    "acorn", "bicycle", "cloud", "diamond", "egg", "feather", "gold", "honey", "insect", "juice",
+    "koala", "lemon", "mango", "noodle", "owl", "pearl", "quokka", "robot", "snow", "tiger",
+    "umbrella", "van", "whistle", "xylophone", "yogurt", "zucchini", "ant", "beach", "coffee", "desk",
+    "eagle", "flame", "guitar", "harp", "iceberg", "jar", "kangaroo", "lighthouse", "moonlight", "night",
+    "ocean", "pyramid", "quartz", "rainbow", "sunflower", "telephone", "universe", "volcano", "windmill", "x-ray"
+];
+
 const getImage = async (req, res) => {
     const queryParams = {
         key: API_KEY, 
-        q: req.query.q || 'nature'
+        q: req.query.q || randomTerms[Math.floor(Math.random() * randomTerms.length)]
     };
 
     const queryString = querystring.stringify(queryParams);

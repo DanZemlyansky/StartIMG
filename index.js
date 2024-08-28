@@ -28,21 +28,27 @@ searchBtn[0].addEventListener('click', async () => {
     //fetch when clicking the search button
     let query = searchQuery;
     try {
-        const res = await fetch(`fetchUrl/${query}`)
+        const res = await fetch(`http://localhost:3000/image`)
         const data = await res.json();
         if (data) {
-            resultContainer.innerHTML +=
+            resultContainer.innerHTML = '';
+
+
+
+            data.hits.map((image) => (
+                resultContainer.innerHTML +=
                 `<div class="imageCardContainer">
                 <div class="imageCardMain">
-                 <img src=""class="imageCardImg" alt='something'></img>
+                 <img src="${image.largeImageURL}"class="imageCardImg" alt='something'></img>
                     <div class="hoverEffectContainer">
                         <div class="hoverItems">
-                        <p>somedata</p>
+                        <p>tags: ${image.tags}</p>
                         <button onclick="">favourite</button>
                     </div>
-             </div>
-            </div>
-        </div>`
+                </div>
+                </div>
+                </div>`
+            ))
         }
     }
     catch (error) {
@@ -55,7 +61,7 @@ searchBtn[0].addEventListener('click', async () => {
 const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], [array[j]] = [array[j], array[i]]];
+        [array[i], array[j]] = [array[j], array[i]];
     }
     return array
 }
@@ -80,7 +86,7 @@ window.onload = async () => {
             resultContainer.innerHTML +=
             `<div class="imageCardContainer">
 <div class="imageCardMain">
- <img src="${image.previewURL}"class="imageCardImg" alt='something'></img>
+ <img src="${image.largeImageURL}"class="imageCardImg" alt='something'></img>
     <div class="hoverEffectContainer">
         <div class="hoverItems">
         <p>tags: ${image.tags}</p>
@@ -94,6 +100,5 @@ window.onload = async () => {
     } catch (error) {
         console.error('Error fetching data:', error);
         resultContainer.innerHTML = '<p>Failed to load data. Please try again.</p>';
-
     }
 }
