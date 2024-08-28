@@ -6,14 +6,12 @@
   --background-color: #e1e1e1;
 }
 
-/* Reset some styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body and Global Styles */
 body {
   font-family: var(--font-family);
   background-color: var(--background-color);
@@ -21,7 +19,11 @@ body {
   line-height: 1.6;
 }
 
-/* Header */
+
+.headerImg{
+  width: 150px;
+}
+
 #header {
   background-color: var(--primary-color);
   padding: 20px;
@@ -33,7 +35,6 @@ body {
   font-size: 2rem;
 }
 
-/* Main Content */
 #main {
   padding: 20px;
   display: flex;
@@ -98,7 +99,6 @@ body {
   background-color: var(--secondary-color);
 }
 
-/* Footer */
 #footer {
   background-color: var(--primary-color);
   color: #fff;
@@ -129,9 +129,11 @@ body {
   border-radius: 8px;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
+
 }
 
 .imageCardMain {
+
   position: relative;
   text-align: center;
 }
@@ -161,10 +163,10 @@ body {
 .imageCardMain p {
   bottom: 20px;
   color: #ddd;
+  font-weight: bold;
 }
 
 .imageCardMain button {
-
   top: 20px;
   padding: 10px 20px;
   background-color: #333;
@@ -196,4 +198,12 @@ body {
 
 .imageCardMain:hover .hoverEffectContainer {
   opacity: 1;
+}
+
+.hoverItems {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
 }
