@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="index.css" /> 
-       <title>Dan's image search</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <title>Dan's image search</title>
 </head>
+
 <body>
     <header id="header">
         <img src="./assets/imgSVG.svg" class="headerImg" alt="headerImage"></img>
@@ -16,30 +18,36 @@
             <input id="searchBar" name="searchBar" alt="searchBar" type="search"></input>
         </div>
 
+
         <div class="imageCardContainer">
             <div class="imageCardMain">
-        <img class="imageCardImg"></img>
-        <p>hide this text only show on hover</p>
-        <button>favourite button when hovering on image</button>
+                <img src="https://cdn.pixabay.com/photo/2016/07/07/16/46/dice-1502706_640.jpg"
+                    class="imageCardImg"></img>
+                <div class="hoverEffectContainer">
+                    <p>hide this text only show on hover</p>
+                    <button>favourite</button>
+                </div>
             </div>
-        </div>
+        </div> 
+
         <section id="resultContainer">
 
         </section>
 
         <div id="buttonContainer">
-<button aria-label="searchBtn" class="searchBtn">
-    Go!
-</button>
+            <button aria-label="searchBtn" class="searchBtn">
+                Go!
+            </button>
 
         </div>
-    </main> 
+    </main>
     <footer id="footer">
-<h5 class="footerText">Made by: 
-    <a href="linkedinlink">Dan Zemlyansky</a>
-</h5>
+        <h5 class="footerText">Made by:
+            <a href="linkedinlink">Dan Zemlyansky</a>
+        </h5>
     </footer>
 
     <script src="index.js"></script>
 </body>
+
 </html>

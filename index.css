@@ -46,7 +46,7 @@ body {
 }
 
 #searchBarContainer label {
-  display: none; 
+  display: none;
 }
 
 #searchBarContainer input#searchBar {
@@ -124,7 +124,7 @@ body {
 
 
 .imageCardContainer {
-  width: 300px; 
+  width: 300px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -137,6 +137,7 @@ body {
 }
 
 .imageCardImg {
+
   width: 100%;
   height: auto;
   display: block;
@@ -144,6 +145,7 @@ body {
 
 .imageCardMain p,
 .imageCardMain button {
+
   opacity: 0;
   transition: opacity 0.3s ease;
   position: absolute;
@@ -157,10 +159,12 @@ body {
 }
 
 .imageCardMain p {
-  bottom: 20px; 
+  bottom: 20px;
+  color: #ddd;
 }
 
 .imageCardMain button {
+
   top: 20px;
   padding: 10px 20px;
   background-color: #333;
@@ -173,4 +177,23 @@ body {
 
 .imageCardMain button:hover {
   background-color: #555;
+}
+
+.hoverEffectContainer {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageCardMain:hover .hoverEffectContainer {
+  opacity: 1;
 }
