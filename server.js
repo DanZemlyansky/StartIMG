@@ -24,9 +24,7 @@ const getImage = async (req, res) => {
         hostname: baseURL,
         port: 443,
         path: `/api/?${queryString}`,
-        headers: {
-            Authorization: `Bearer ${API_KEY}`
-        }
+        method: 'GET'
     }
 
     let data = []; //hold data here
