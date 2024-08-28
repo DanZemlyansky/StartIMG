@@ -10,7 +10,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-
+const API_KEY = "42079125-1909400cd5615db78c9c2cb93";
 
 const getImage = async (req ,res) => {
 let data = {}; //expect object
@@ -27,9 +27,7 @@ res.on('data' , (chunk) => {
     data = chunk;
 })
 //send data back with success code.
-res.on('end' , () => {res.status(200).send(data)})
-
-})
+res.on('end' , () => {res.status(200).send(data)})})
 
 
 }

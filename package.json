@@ -3,7 +3,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "node": "^22.7.0",
-    "scss": "^0.2.4"
   },
   "scripts": {
     "start": "node server.js"

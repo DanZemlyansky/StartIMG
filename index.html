@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="scss" href="index.scss" />    <title>Dan's image search</title>
+    <link rel="stylesheet" type="text/css" href="index.css" /> 
+       <title>Dan's image search</title>
 </head>
 <body>
     <header id="header">
-        <h1 class="headerText">Dan's super cool image search</h1>
+        <img src="./assets/imgSVG.svg" class="headerImg" alt="headerImage"></img>
     </header>
     <main id="main">
         <div id="searchBarContainer">
@@ -15,7 +16,13 @@
             <input id="searchBar" name="searchBar" alt="searchBar" type="search"></input>
         </div>
 
-
+        <div class="imageCardContainer">
+            <div class="imageCardMain">
+        <img class="imageCardImg"></img>
+        <p>hide this text only show on hover</p>
+        <button>favourite button when hovering on image</button>
+            </div>
+        </div>
         <section id="resultContainer">
 
         </section>
@@ -28,7 +35,9 @@
         </div>
     </main> 
     <footer id="footer">
-<h5 class="footerText">Made by: <a href="linkedinlink"></a></h5>
+<h5 class="footerText">Made by: 
+    <a href="linkedinlink">Dan Zemlyansky</a>
+</h5>
     </footer>
 
     <script src="index.js"></script>

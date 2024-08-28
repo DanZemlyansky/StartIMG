@@ -11,9 +11,10 @@ searchBar.oninput = (e) => {
 }
 
 searchBtn[0].addEventListener('click' , async () => {
-//fetch stuff here
+//fetch when clicking the search button
+let query = searchQuery;
 try {
-    const res = await fetch('fetchUrl/query')
+    const res = await fetch(`fetchUrl/${query}`)
     const data = await res.json();
     if(data){
         resultContainer.innerHTML += `<img class="image" src=${data.something} alt=${data.name}></img>`
@@ -23,4 +24,15 @@ try {
     resultContainer.innerHTML = '<p>Failed to load data. Please try again.</p>';
 }})
 
-document.onload
+//fetch a random selection of images on load
+window.onload = async () => {
+    try {
+        const res = await fetch('fetchUrl/RANDOMquery')
+        const data = await res.json();
+    
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        resultContainer.innerHTML = '<p>Failed to load data. Please try again.</p>';
+    
+    }
+}
