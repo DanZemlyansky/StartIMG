@@ -138,6 +138,8 @@ const addModal = (element) => {};
 const loadMoreImages = async () => {
 
 try {
+
+    //if no query it will just return the random images
     const response = await fetch(`http://localhost:3000/image?q=${currentQuery}`);
 
 
