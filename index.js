@@ -11,7 +11,6 @@ const cardTemplate = `<div class="imageCardContainer">
     <div class="hoverEffectContainer">
         <div class="hoverItems">
         <p>somedata</p>
-        <button onclick="">favourite</button>
     </div>
 </div>
 </div>
@@ -19,7 +18,7 @@ const cardTemplate = `<div class="imageCardContainer">
 
 //initialize search query as empty string
 let searchQuery = "";
-
+let currentQuery = "" //update when searching and then pass to load more function
 //handle the change in the input
 searchBar.oninput = (e) => {
   searchQuery = e.target.value;
@@ -43,11 +42,10 @@ searchBtn[0].addEventListener("click", async () => {
                     <div class="hoverEffectContainer">
                         <div class="hoverItems">
                         <p>tags: ${image.tags}</p>
-                        <button onclick="">favourite</button>
-                    </div>
-                </div>
-                </div>
-                </div>`)
+                        </div>
+                        </div>
+                        </div>
+                        </div>`)
       );
     }
   } catch (error) {
@@ -72,23 +70,18 @@ modalCloseBtn.addEventListener("click", closeModal);
 
 let dataArray = [];
 
+const openModal = (item) => {
+  modalContainer.style.display = "flex";
+  console.log(item);
 
-const openModal = (dataArray) => {
-  modalContainer.style.display = "block";
-
-
-dataArray.map((data) => {
-    modalContainer.innerHTML = `
-    <div class="modalContent">
-      <img src="${data.largeImageURL}" alt="${data.tags}">
-      <p>Tags: ${data.tags}</p>
+  const modalContent = modalContainer.querySelector(".modalContent");
+  modalContent.innerHTML = `
+      <img src="${item.largeImageURL}" alt="${item.tags}">
+      <p>Tags: ${item.tags}</p>
+      <p>type: ${item.type}</p>
+      <p>user: ${item.user}</p>
       <button>Favourite</button>
-    </div>
-  `;
-})
-
-
-
+    `;
 };
 //fetch a random selection of images on load
 window.onload = async () => {
@@ -101,31 +94,35 @@ window.onload = async () => {
     }
 
     const data = await response.json();
-    
-    // shuffle the array and get 10 elements
+
     const random10 = shuffleArray(data.hits.slice(0, 10));
-    console.log(data);
-    random10.map(
-      (image) =>{
 
-        dataArray.push(image);
+    resultContainer.innerHTML = "";
 
-        resultContainer.innerHTML += `<div class="imageCardContainer">
-<div class="imageCardMain">
- <img src="${image.largeImageURL}"class="imageCardImg" alt='something'></img>
-    <div class="hoverEffectContainer">
-        <div class="hoverItems">
-        <p>tags: ${image.tags}</p>
-        <button onclick="">favourite</button>
-    </div>
-</div>
-</div>
-</div>`}
-    );
+    random10.forEach((image) => {
+      dataArray.push(image);
 
-    const hoverEffect = document.querySelectorAll(".hoverEffectContainer"); // HTMLcollection of the elements.
-    hoverEffect.forEach((element) => {
-      element.addEventListener("click", () => {openModal(dataArray)});
+      resultContainer.innerHTML += `
+          <div class="imageCardContainer">
+            <div class="imageCardMain">
+              <img src="${image.largeImageURL}" class="imageCardImg" alt="something"></img>
+              <div class="hoverEffectContainer">
+                <div class="hoverItems">
+                  <p>tags: ${image.tags}</p>
+
+                </div>
+              </div>
+            </div>
+          </div>`;
+
+      const hoverEffect = resultContainer.querySelectorAll(
+        ".hoverEffectContainer"
+      );
+      hoverEffect.forEach((element, index) => {
+        element.addEventListener("click", () => {
+          openModal(random10[index]);
+        });
+      });
     });
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -133,14 +130,8 @@ window.onload = async () => {
   }
 };
 
-//make adding modal to searches easier 
-const addModal = (element) => {}
+//make adding modal to searches easier
+const addModal = (element) => {};
 
-
-// on call call the server and load more images from the search result
-const loadMoreImages = async () => {
-
-
-
-
-}
+//on call call the server and load more images from the search result
+const loadMoreImages = async () => {};
