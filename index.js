@@ -137,7 +137,11 @@ const addModal = (element) => {};
 //on call call the server and load more images from the search result
 const loadMoreImages = async () => {
 
+//if there is a query use that for the results
+    currentQuery = searchBar.value;
 try {
+
+
 
     //if no query it will just return the random images
     const response = await fetch(`http://localhost:3000/image?q=${currentQuery}`);
