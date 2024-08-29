@@ -85,50 +85,47 @@ const openModal = (item) => {
 };
 //fetch a random selection of images on load
 window.onload = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/image");
-
-    if (!response.ok) {
+    try {
+      const response = await fetch("http://localhost:3000/random-images");
+  
+      if (!response.ok) {
+        resultContainer.innerHTML = "";
+        throw new Error("Network response was not ok");
+      }
+  
+      const data = await response.json();
+  
+      const random10 = shuffleArray(data.hits); // Since we're requesting 10 images directly, no need to slice
+  
       resultContainer.innerHTML = "";
-      throw new Error("Network response was not ok");
-    }
-
-    const data = await response.json();
-
-    const random10 = shuffleArray(data.hits.slice(0, 10));
-
-    resultContainer.innerHTML = "";
-
-    random10.forEach((image) => {
-      dataArray.push(image);
-
-      resultContainer.innerHTML += `
-          <div class="imageCardContainer">
-            <div class="imageCardMain">
-              <img src="${image.largeImageURL}" class="imageCardImg" alt="something"></img>
-              <div class="hoverEffectContainer">
-                <div class="hoverItems">
-                  <p>tags: ${image.tags}</p>
-
+  
+      random10.forEach((image) => {
+        dataArray.push(image);
+  
+        resultContainer.innerHTML += `
+            <div class="imageCardContainer">
+              <div class="imageCardMain">
+                <img src="${image.largeImageURL}" class="imageCardImg" alt="something"></img>
+                <div class="hoverEffectContainer">
+                  <div class="hoverItems">
+                    <p>tags: ${image.tags}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>`;
-
-      const hoverEffect = resultContainer.querySelectorAll(
-        ".hoverEffectContainer"
-      );
-      hoverEffect.forEach((element, index) => {
-        element.addEventListener("click", () => {
-          openModal(random10[index]);
+            </div>`;
+  
+        const hoverEffect = resultContainer.querySelectorAll(".hoverEffectContainer");
+        hoverEffect.forEach((element, index) => {
+          element.addEventListener("click", () => {
+            openModal(random10[index]);
+          });
         });
       });
-    });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
-  }
-};
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
+    }
+  };
 
 //make adding modal to searches easier
 const addModal = (element) => {};
