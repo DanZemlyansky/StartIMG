@@ -29,6 +29,7 @@ body {
 }
 
 #header {
+  user-select: none;
   display: flex;
   background-color: var(--primary-color);
   padding: 20px;
