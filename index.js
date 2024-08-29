@@ -2,6 +2,10 @@
 const searchBar = document.getElementById('searchBar');
 const searchBtn = document.getElementsByClassName('searchBtn');
 const resultContainer = document.getElementById('resultContainer');
+
+const modalContainer = document.getElementById('modalContainer');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+
 const cardTemplate =
     `<div class="imageCardContainer">
 <div class="imageCardMain">
@@ -31,6 +35,7 @@ searchBtn[0].addEventListener('click', async () => {
         const res = await fetch(`http://localhost:3000/image`)
         const data = await res.json();
         if (data) {
+            //reset the container
             resultContainer.innerHTML = '';
 
 
@@ -66,8 +71,28 @@ const shuffleArray = (array) => {
     return array
 }
 
+
+const closeModal = () => {
+    modalContainer.style.display = 'none'
+
+}
+
+modalCloseBtn.addEventListener('click' , closeModal)
+
+const openModal = (e) => {
+    modalContainer.style.display = 'block'
+
+
+
+
+
+
+}
 //fetch a random selection of images on load
 window.onload = async () => {
+
+
+
     try {
         const response = await fetch('http://localhost:3000/image');
 
@@ -80,7 +105,6 @@ window.onload = async () => {
         // shuffle the array and get 10 elements
         const random10 = shuffleArray(data.hits.slice(0, 10));
         console.log(data);
-
         random10.map((image) => (
 
             resultContainer.innerHTML +=
@@ -94,7 +118,13 @@ window.onload = async () => {
     </div>
 </div>
 </div>
-</div>`))
+</div>`
+        ))
+
+        const hoverEffect = document.querySelectorAll('.hoverEffectContainer'); // HTMLcollection of the elements.
+        hoverEffect.forEach(element => {
+            element.addEventListener('click', openModal)
+        });
 
 
     } catch (error) {
@@ -102,3 +132,7 @@ window.onload = async () => {
         resultContainer.innerHTML = '<p>Failed to load data. Please try again.</p>';
     }
 }
+
+
+
+

@@ -17,6 +17,10 @@ body {
   background-color: var(--background-color);
   color: var(--primary-color);
   line-height: 1.6;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 
@@ -37,13 +41,18 @@ body {
 
 #main {
   padding: 20px;
+  height: 100%;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   align-items: center;
 }
 
 #searchBarContainer {
   margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #searchBarContainer label {
@@ -51,7 +60,7 @@ body {
 }
 
 #searchBarContainer input#searchBar {
-  width: 300px;
+  width: 50%;
   padding: 10px;
   border: 1px solid var(--secondary-color);
   border-radius: 5px;
@@ -206,4 +215,20 @@ body {
   display: flex;
   justify-content: space-between;
   flex-direction: column-reverse;
+}
+
+#modalContainer{
+  width: 80vw;
+  height: 50vh;
+  background-color: #dcdcdc;
+  position: absolute;
+  z-index: 99;
+}
+/* update this and insert data in container in JS */
+#modalContainer{
+  display: none 
+}
+
+#modalCloseBtn{
+  
 }
