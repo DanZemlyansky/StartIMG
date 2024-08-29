@@ -41,24 +41,24 @@ body {
 
 #main {
   overflow: scroll;
-  padding: 20px;
   height: 100%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  margin-top: 3rem;
-
 }
 
 #searchBarContainer {
-  margin-bottom: 20px;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  position: -webkit-sticky;
   position: sticky;
-  position: fixed;
-  top: 13rem;
+  top: 0;
+  background-color: var(--background-color);
+  z-index: 2;
+  padding: 10px 0;
 }
 
 #searchBarContainer label {
@@ -67,12 +67,12 @@ body {
 
 #searchBarContainer input#searchBar {
   width: 50%;
+  height: ;
   padding: 10px;
   border: 1px solid var(--secondary-color);
   border-radius: 5px;
   border-top-right-radius: 0% !important;
   border-bottom-right-radius: 0% !important;
-
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
@@ -102,7 +102,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
 #buttonContainer button.searchBtn {
@@ -128,7 +127,6 @@ body {
   color: #fff;
   text-align: center;
   padding: 10px;
-  margin-top: 20px;
 }
 
 #footer .footerText {
@@ -305,4 +303,50 @@ body {
 
 .modalContent button:hover {
   background-color: #0056b3;
+}
+
+
+#loadBtn {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: var(--primary-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+#loadBtn:hover {
+  background-color: var(--secondary-color);
+
+}
+
+
+#tagsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 2rem;
+  background-color: var(--background-color);
+  z-index: 99;
+  position: -webkit-sticky;
+  position: sticky;
+  padding: 10px 0;
+}
+
+
+#tagsContainer button {
+  border: none;
+  padding: 2px;
+background: none;
+padding: 8px;
+}
+
+
+#tagsContainer button:hover {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  color: #fff;
 }

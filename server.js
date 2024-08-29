@@ -25,7 +25,7 @@ const randomTerms = [
     "koala", "lemon", "mango", "noodle", "owl", "pearl", "quokka", "robot", "snow", "tiger",
     "umbrella", "van", "whistle", "xylophone", "yogurt", "zucchini", "ant", "beach", "coffee", "desk",
     "eagle", "flame", "guitar", "harp", "iceberg", "jar", "kangaroo", "lighthouse", "moonlight", "night",
-    "ocean", "pyramid", "quartz", "rainbow", "sunflower", "telephone", "universe", "volcano", "windmill", "x-ray" , "startLine"
+    "ocean", "pyramid", "quartz", "rainbow", "sunflower", "telephone", "universe", "volcano", "windmill", "x-ray" , "startline"
 ];
 
 const getImage = async (req, res) => {
@@ -83,3 +83,4 @@ const getRandomImages = async (req ,res) => {    try {
 
 app.get('/image', getImage);
 app.get('/random-images', getRandomImages);
+
