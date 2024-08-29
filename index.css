@@ -51,7 +51,7 @@ body {
   align-items: center;
 }
 
-#searchForm {
+#searchBarContainer {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -63,6 +63,14 @@ body {
   z-index: 2;
   padding: 10px 0;
 }
+
+
+#searchForm {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
 
 #searchBarContainer input#searchBar {
   width: 50%;
