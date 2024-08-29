@@ -2,7 +2,7 @@
 :root {
   --primary-color: #333;
   --secondary-color: #555;
-  --font-family: 'Arial, sans-serif';
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --background-color: #e1e1e1;
 }
 
@@ -25,16 +25,18 @@ body {
 
 
 .headerImg {
-  width: 150px;
+  width: 50px;
 }
 
 #header {
+  display: flex;
   background-color: var(--primary-color);
   padding: 20px;
   text-align: center;
 }
 
-#header .headerText {
+#header #headerText {
+  font-weight: bold;
   color: #fff;
   font-size: 2rem;
 }
@@ -48,7 +50,7 @@ body {
   align-items: center;
 }
 
-#searchBarContainer {
+#searchForm {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -59,10 +61,6 @@ body {
   background-color: var(--background-color);
   z-index: 2;
   padding: 10px 0;
-}
-
-#searchBarContainer label {
-  display: none;
 }
 
 #searchBarContainer input#searchBar {
@@ -326,9 +324,9 @@ body {
 
 #tagsContainer {
   display: flex;
-  width: 100%;
+  width: 100vw;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   background-color: var(--background-color);
   z-index: 99;
   position: -webkit-sticky;
@@ -340,8 +338,8 @@ body {
 #tagsContainer button {
   border: none;
   padding: 2px;
-background: none;
-padding: 8px;
+  background: none;
+  padding: 8px;
 }
 
 
@@ -349,4 +347,37 @@ padding: 8px;
   cursor: pointer;
   background-color: var(--secondary-color);
   color: #fff;
+}
+
+
+@media screen and (max-width: 482px) {
+  #tagsContainer {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  #tagsContainer button {
+    flex: 1 1 16%;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+
+  #header #headerText {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  #header {
+    padding: 0.5rem;
+
+    ;
+  }
+
+  .headerImg {
+    width: 25px;
+  }
+
+
 }

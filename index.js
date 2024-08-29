@@ -49,6 +49,15 @@ const searchQuery = async (query) => {
       resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
     }
   }
+
+  document.getElementById('searchForm').addEventListener('submit', function(e) {
+     e.preventDefault(); 
+    searchQuery(searchInput.value) 
+ });
+  
+
+
+
 // pass directry the search query
 searchBtn[0].addEventListener("click", () => {
     searchQuery(searchInput.value)
@@ -191,6 +200,8 @@ data.hits.map((image) => {
 
 
 };
+
+
 
 
 loadBtn.addEventListener('click' , loadMoreImages);
