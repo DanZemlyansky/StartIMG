@@ -1,52 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="index.css" />
     <title>Dan's image search</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header id="header">
-        <img src="./assets/imgSVG.svg" class="headerImg" alt="headerImage"></img>
+      <img src="./assets/imgSVG.svg" class="headerImg" alt="headerImage" />
     </header>
     <main id="main">
-        <div id="searchBarContainer">
-            <label for="searchBar"></label>
-            <input placeholder="Search for images..." id="searchBar" name="searchBar" alt="searchBar" type="search"></input>
-            <div id="buttonContainer">
-                <button  aria-label="searchBtn" class="searchBtn">
-                    Go!
-                </button>
-    
-            </div>
+      <div id="searchBarContainer">
+        <label for="searchBar"></label>
+        <input
+          placeholder="Search for images..."
+          id="searchBar"
+          name="searchBar"
+          alt="searchBar"
+          type="search"
+        />
+        <div id="buttonContainer">
+          <button aria-label="searchBtn" class="searchBtn">Go!</button>
         </div>
+      </div>
 
-        <div id="modalContainer">
-            <button id="modalCloseBtn">X</button>
-            <div class="modalContent">
-</div>
-        </div>
+      <div id="modalContainer">
+        <button id="modalCloseBtn">X</button>
+        <div class="modalContent"></div>
+      </div>
 
+      <section id="resultContainer"></section>
 
-        <section id="resultContainer">
-
-        </section>
-
-            <button aria-label="searchBtn" class="LoadBtn">
-                Load More
-            </button>
-
+      <button aria-label="searchBtn" class="LoadBtn">Load More</button>
     </main>
     <footer id="footer">
-        <h5 class="footerText">Made by:
-            <a href="https://www.linkedin.com/in/danzemlyansky/">Dan Zemlyansky</a>
-        </h5>
+      <h5 class="footerText">
+        Made by:
+        <a href="https://www.linkedin.com/in/danzemlyansky/">Dan Zemlyansky</a>
+      </h5>
     </footer>
 
     <script src="index.js"></script>
-</body>
-
+  </body>
 </html>
