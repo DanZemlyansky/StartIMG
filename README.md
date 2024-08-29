@@ -5,5 +5,5 @@ https://danzemlyansky.github.io/StartIMG/
 
 
 setup : 
-clone repo
+clone repo ->
 npm run start
