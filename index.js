@@ -3,6 +3,9 @@ const searchBtn = document.getElementsByClassName("searchBtn");
 const resultContainer = document.getElementById("resultContainer");
 const modalContainer = document.getElementById("modalContainer");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
+const searchInput = document.getElementById('searchBar');
+const loadBtn = document.getElementById("loadBtn");
+
 
 // const cardTemplate = `<div class="imageCardContainer">
 // <div class="imageCardMain">
@@ -16,16 +19,16 @@ const modalCloseBtn = document.getElementById("modalCloseBtn");
 // </div>`;
 
 //initialize search query as empty string
-let searchQuery = "";
 let currentQuery = ""; //update when searching and then pass to load more function
 //handle the change in the input
-searchBar.oninput = (e) => {
-  searchQuery = e.target.value;
-};
+
 
 searchBtn[0].addEventListener("click", async () => {
   //fetch when clicking the search button
-  let query = searchQuery;
+  let query = searchInput.value;
+
+  //update the currentQuery variable
+  currentQuery = query;
   try {
     const res = await fetch(`http://localhost:3000/image?q=${query}`);
     const data = await res.json();
@@ -132,4 +135,46 @@ window.onload = async () => {
 const addModal = (element) => {};
 
 //on call call the server and load more images from the search result
-const loadMoreImages = async () => {};
+const loadMoreImages = async () => {
+
+try {
+    const response = await fetch(`http://localhost:3000/image?q=${currentQuery}`);
+
+
+    if (!response.ok) {
+        resultContainer.innerHTML = "";
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+
+data.hits.map((image) => {
+
+
+    resultContainer.innerHTML += `
+    <div class="imageCardContainer">
+      <div class="imageCardMain">
+        <img src="${image.largeImageURL}" class="imageCardImg" alt="something">
+        <div class="hoverEffectContainer">
+          <div class="hoverItems">
+            <p>tags: ${image.tags}</p>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+})
+
+
+} catch (error) {
+    console.error("Error fetching data:", error);
+    resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
+
+}
+
+
+
+};
+
+
+loadBtn.addEventListener('click' , loadMoreImages);

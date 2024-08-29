@@ -31,8 +31,7 @@ const randomTerms = [
 const getImage = async (req, res) => {
     const queryParams = {
         key: API_KEY, 
-        q: req.query.q,
-        // || randomTerms[Math.floor(Math.random() * randomTerms.length)],
+        q: req.query.q || randomTerms[Math.floor(Math.random() * randomTerms.length)],
         per_page: req.query.per_page || 10 
     };
 
