@@ -11,7 +11,7 @@ app.listen(PORT, () => {
 });
 
 app.use(cors());
-
+// usually would use env variables for this
 const API_KEY = "42079125-1909400cd5615db78c9c2cb93";
 const baseURL = 'pixabay.com';
 
@@ -25,7 +25,7 @@ const randomTerms = [
     "koala", "lemon", "mango", "noodle", "owl", "pearl", "quokka", "robot", "snow", "tiger",
     "umbrella", "van", "whistle", "xylophone", "yogurt", "zucchini", "ant", "beach", "coffee", "desk",
     "eagle", "flame", "guitar", "harp", "iceberg", "jar", "kangaroo", "lighthouse", "moonlight", "night",
-    "ocean", "pyramid", "quartz", "rainbow", "sunflower", "telephone", "universe", "volcano", "windmill", "x-ray"
+    "ocean", "pyramid", "quartz", "rainbow", "sunflower", "telephone", "universe", "volcano", "windmill", "x-ray" , "StartLine"
 ];
 
 const getImage = async (req, res) => {

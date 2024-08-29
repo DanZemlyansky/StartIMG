@@ -24,7 +24,7 @@ body {
 }
 
 
-.headerImg{
+.headerImg {
   width: 150px;
 }
 
@@ -217,18 +217,17 @@ body {
   flex-direction: column-reverse;
 }
 
-#modalContainer{
+#modalContainer {
   width: 80vw;
   height: 50vh;
   background-color: #dcdcdc;
   position: absolute;
   z-index: 99;
 }
+
 /* update this and insert data in container in JS */
-#modalContainer{
-  display: none 
+#modalContainer {
+  display: none
 }
 
-#modalCloseBtn{
-  
-}
+#modalCloseBtn {}
