@@ -25,6 +25,8 @@ body {
 }
 
 .headerImg {
+  display: flex;
+  align-self: center;
   height: 50px;
   width: 50px;
 }
