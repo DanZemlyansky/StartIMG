@@ -1,10 +1,10 @@
 :root {
-  --primary-color: #2C3E50; 
+  --primary-color: #2C3E50;
   --secondary-color: #34495E;
-  --accent-color: #ffe0d2;  
-  --background-color: #ECF0F1; 
-  --text-color: #182028; 
-  --font-family: 'Poppins', sans-serif; 
+  --accent-color: #ffe0d2;
+  --background-color: #ECF0F1;
+  --text-color: #182028;
+  --font-family: 'Poppins', sans-serif;
 }
 
 * {
@@ -79,8 +79,8 @@ body {
   padding: 10px;
   border: 1px solid var(--secondary-color);
   border-radius: 5px;
-  border-top-right-radius: 0% !important;
-  border-bottom-right-radius: 0% !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
@@ -96,7 +96,6 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-
   margin-bottom: 20px;
 }
 
@@ -121,8 +120,8 @@ body {
   background-color: var(--primary-color);
   border: 1px solid var(--secondary-color);
   border-radius: 5px;
-  border-top-left-radius: 0%;
-  border-bottom-left-radius: 0%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -148,15 +147,15 @@ body {
 }
 
 #footer .footerText a:hover {
-  color: var(--secondary-color);
+  color: #d68c25;
 }
 
 .imageCardContainer {
-  height: max-content;
+  position: relative;
   width: 300px;
   border-radius: 8px;
   overflow: hidden;
-   box-sizing: border-box;
+  box-sizing: border-box;
   transition: box-shadow 0.3s ease;
 }
 
@@ -171,44 +170,19 @@ body {
   display: block;
 }
 
-.imageCardMain p,
-.imageCardMain button {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.imageCardMain:hover p,
-.imageCardMain:hover button {
-  text-shadow: 1px 1px 1px black;
-  opacity: 1;
-}
-
-.imageCardMain p {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  color: var(--accent-color);
-  font-weight: bold;
-}
-
 .hoverEffectContainer {
-  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
   opacity: 0;
   transition: opacity 0.3s ease;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: center;
 }
 
 .imageCardMain:hover .hoverEffectContainer {
@@ -216,21 +190,45 @@ body {
 }
 
 .hoverItems {
-  position: absolute;
-  width: 100%;
   display: flex;
-  justify-content: space-between;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
 }
 
-#modalContainer {
-  width: 80vw;
-  height: 40vh;
-  background-color: var(--background-color);
-  z-index: 99;
+.userData {
   display: flex;
-  justify-content: center;
   align-items: center;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  gap: 10px;
+  color: white;
+}
+
+.userIMG {
+  border-radius: 50%;
+  width: 40px;
+}
+
+.userName {
+  margin: 0;
+}
+
+.favouriteBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #ac6b10;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.favouriteBtn:hover {
+  background-color: #84520b;
 }
 
 #modalContainer {
@@ -250,7 +248,7 @@ body {
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: #700707; 
+  background-color: #700707;
   padding: 4px;
   width: 3.5rem;
   height: auto;
@@ -263,7 +261,7 @@ body {
 }
 
 #modalCloseBtn:hover {
-  background-color: #621414; 
+  background-color: #621414;
 }
 
 .modalContent {
@@ -297,11 +295,11 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  transition: 0.3s background-color;
+  transition: background-color 0.3s ease;
 }
 
 .modalContent button:hover {
-  background-color: var(--secondary-color); 
+  background-color: var(--secondary-color);
 }
 
 #loadBtn {
@@ -334,9 +332,8 @@ body {
 
 #tagsContainer button {
   border: none;
-  padding: 2px;
-  background: none;
   padding: 8px;
+  background: none;
 }
 
 #tagsContainer button:hover {
@@ -370,9 +367,19 @@ body {
     width: 100%;
   }
 
-  .headerImg{
-    width: 40px;
-    height: 40px;
+  .headerImg {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #modalCloseBtn {
+    font-size: 2rem;
+  }
+
+  #searchBarContainer input#searchBar {
+    width: 90%;
   }
 
   #searchForm{
@@ -380,10 +387,8 @@ body {
   }
 }
 
-
 .column{
-  gap: 0.5rem;
-  align-items: center;
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }

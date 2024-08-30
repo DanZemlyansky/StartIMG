@@ -112,61 +112,89 @@ const randomTerms = [
   "x-ray",
   "start line",
 ];
-// Hold data here to use to create modals
-let dataArray = [];
-//update this to get different images from the API
 let currentPage = 1;
-
-// Track the count of images in each column
 const imageCounts = Array(imageColumns.length).fill(0);
 
-const addImageToColumn = (image, index) => {
-  // Find the column with the fewest images
-  let minCount = Math.min(...imageCounts);
-  let columnIndex = imageCounts.indexOf(minCount);
 
-  imageColumns[columnIndex].innerHTML += `
-    <div class="imageCardContainer">
-      <div class="imageCardMain">
-        <img src="${image.largeImageURL}" class="imageCardImg" alt="something">
-        <div class="hoverEffectContainer">
-          <div class="hoverItems">
-            <p>tags: ${image.tags}</p>
+
+const addImageToColumn = (image) => {
+    // Find the column with the fewest images
+    let minCount = Math.min(...imageCounts);
+    let columnIndex = imageCounts.indexOf(minCount);
+
+    // Create a unique ID for each image
+    const imageId = `image-${Date.now()}-${Math.random()}`;
+
+    const imageHTML = `
+      <div class="imageCardContainer" data-image-id="${imageId}">
+        <div class="imageCardMain">
+          <img src="${image.largeImageURL}" class="imageCardImg" alt="${image.tags}">
+          <div class="hoverEffectContainer">
+            <div class="hoverItems">
+              <div class="userData">
+                <p class="userName">${image.user}</p>
+                <img class="userIMG" src="${image.userImageURL}">
+              </div>
+              <button class='favouriteBtn' data-image-id="${imageId}">Favourite</button>
+            </div>
           </div>
         </div>
-      </div>
-    </div>`;
+      </div>`;
 
-  imageCounts[columnIndex] += 1;
-};
+    imageColumns[columnIndex].insertAdjacentHTML('beforeend', imageHTML);
+    imageCounts[columnIndex] += 1;
 
+    // Store image data using the UID
+    const imageCard = resultContainer.querySelector(`.imageCardContainer[data-image-id="${imageId}"]`);
+    imageCard.dataset.image = JSON.stringify(image);
+  };
+
+  // UID approach to fix the data in the columns.
+  const setupModals = () => {
+    resultContainer.addEventListener("click", (event) => {
+      // Check if the click target is a favourite button
+      if (event.target.closest(".favouriteBtn")) {
+        return; // Ignore clicks on favourite buttons
+      }
+  
+      // Find the closest hoverEffectContainer
+      const hoverEffectContainer = event.target.closest(".hoverEffectContainer");
+      
+      if (hoverEffectContainer) {
+        // Find the closest imageCardContainer
+        const imageCardContainer = hoverEffectContainer.closest(".imageCardContainer");
+        // Get the image data from the dataset
+        const imageData = JSON.parse(imageCardContainer.dataset.image);
+        // Open the modal with the image data
+        openModal(imageData);
+      }
+    });
+  };
+  
+  
 const searchQuery = async (query) => {
   try {
     const res = await fetch(`http://localhost:3000/image?q=${query}`);
     const data = await res.json();
 
-    // Reset columns and image counts
     imageColumns.forEach((column) => (column.innerHTML = ""));
     imageCounts.fill(0);
 
     if (data) {
-      dataArray = [];
-      // Call the helper funciton and add images to the columns evenly
+      dataArray = data.hits;
       data.hits.forEach((image) => {
         addImageToColumn(image);
-        dataArray.push(image);
       });
 
-      // Then setup the modals
-      setupModals();
+      setupModals(); // Call after images are added
     }
-    // Reset each search
     currentPage = 1;
   } catch (error) {
     console.error("Error fetching data:", error);
     resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
   }
 };
+
 
 document.getElementById("searchForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -188,70 +216,55 @@ const closeModal = () => {
 modalCloseBtn.addEventListener("click", closeModal);
 
 const openModal = (item) => {
-  modalContainer.style.display = "flex";
+    modalContainer.style.display = "flex";
+  
+    const modalContent = modalContainer.querySelector(".modalContent");
+    modalContent.innerHTML = `
+      <img src="${item.largeImageURL}" alt="${item.tags}">
+      <p>Tags: ${item.tags}</p>
+      <p>Type: ${item.type}</p>
+      <p>User: ${item.user}</p>
+    `;
+  };
 
-  const modalContent = modalContainer.querySelector(".modalContent");
-  modalContent.innerHTML = `
-    <img src="${item.largeImageURL}" alt="${item.tags}">
-    <p>Tags: ${item.tags}</p>
-    <p>type: ${item.type}</p>
-    <p>user: ${item.user}</p>
-    <button>Favourite</button>
-  `;
-};
-
-const setupModals = () => {
-  const hoverEffects = resultContainer.querySelectorAll(
-    ".hoverEffectContainer"
-  );
-  hoverEffects.forEach((element, index) => {
-    element.addEventListener("click", () => {
-      openModal(dataArray[index]);
-    });
-  });
-};
-
-// Fetch a random selection of images on load
-window.onload = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/random-images");
-    if (!response.ok) {
-      resultContainer.innerHTML = "";
-      throw new Error("Network response was not ok");
-    }
-
-    const data = await response.json();
-    const randomImages = shuffleArray(data.hits);
-    const randomTags = shuffleArray(randomTerms).slice(0, 7); // Get 7 random terms from the array
-
-    randomTags.forEach((term) => {
-      tagsContainer.innerHTML += `<button class="termBtn">${term}</button>`;
-    });
-
-    // Add event listener to the created tags
-    const btns = document.querySelectorAll(".termBtn");
-    btns.forEach((button) => {
-      button.addEventListener("click", () => {
-        searchQuery(button.textContent); // Pass the text content
-
-        searchInput.value = button.textContent; // Change the input text
+  window.onload = async () => {    
+    try {
+      const response = await fetch("http://localhost:3000/random-images");
+      if (!response.ok) {
+        resultContainer.innerHTML = "";
+        throw new Error("Network response was not ok");
+      }
+  
+      const data = await response.json();
+      const images = data.hits;
+      const randomTags = shuffleArray(randomTerms).slice(0, 7);
+  
+      randomTags.forEach((term) => {
+        tagsContainer.innerHTML += `<button class="termBtn">${term}</button>`;
       });
-    });
+  
+      const btns = document.querySelectorAll(".termBtn");
+      btns.forEach((button) => {
+        button.addEventListener("click", () => {
+          searchQuery(button.textContent);
+          searchInput.value = button.textContent;
+        });
+      });
+  
+      dataArray = [];
+      images.forEach((image) => {
+        addImageToColumn(image);
+        dataArray.push(image);
+      });
+  
+      setupModals(); 
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
+    }
+  };
+  
 
-    dataArray = []; // Reset dataArray
-
-    randomImages.forEach((image) => {
-      addImageToColumn(image);
-      dataArray.push(image);
-    });
-    setupModals();
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
-  }
-};
-
-// On call, call the server and load more images from the search result
 const loadMoreImages = async () => {
   const currentQuery = searchBar.value;
   currentPage += 1;
@@ -273,8 +286,8 @@ const loadMoreImages = async () => {
       addImageToColumn(image);
       dataArray.push(image);
     });
-
     setupModals();
+
   } catch (error) {
     console.error("Error fetching data:", error);
     resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
