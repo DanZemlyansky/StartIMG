@@ -7,6 +7,7 @@ const searchInput = document.getElementById("searchBar");
 const loadBtn = document.getElementById("loadBtn");
 const tagsContainer = document.getElementById("tagsContainer");
 const hoverEffect = resultContainer.querySelectorAll(".hoverEffectContainer");
+const imageColumns = document.querySelectorAll(".column");
 
 const randomTerms = [
   "apple",
@@ -109,40 +110,58 @@ const randomTerms = [
   "volcano",
   "windmill",
   "x-ray",
-  "startline",
+  "start line",
 ];
-
 // Hold data here to use to create modals
 let dataArray = [];
+//update this to get different images from the API
+let currentPage = 1;
+
+// Track the count of images in each column
+const imageCounts = Array(imageColumns.length).fill(0);
+
+const addImageToColumn = (image, index) => {
+  // Find the column with the fewest images
+  let minCount = Math.min(...imageCounts);
+  let columnIndex = imageCounts.indexOf(minCount);
+
+  imageColumns[columnIndex].innerHTML += `
+    <div class="imageCardContainer">
+      <div class="imageCardMain">
+        <img src="${image.largeImageURL}" class="imageCardImg" alt="something">
+        <div class="hoverEffectContainer">
+          <div class="hoverItems">
+            <p>tags: ${image.tags}</p>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  imageCounts[columnIndex] += 1;
+};
 
 const searchQuery = async (query) => {
   try {
     const res = await fetch(`http://localhost:3000/image?q=${query}`);
     const data = await res.json();
 
-    // If getting a new query remove the old data
-    if (data) {
-      resultContainer.innerHTML = "";
-      dataArray = [];
+    // Reset columns and image counts
+    imageColumns.forEach((column) => (column.innerHTML = ""));
+    imageCounts.fill(0);
 
+    if (data) {
+      dataArray = [];
+      // Call the helper funciton and add images to the columns evenly
       data.hits.forEach((image) => {
-        resultContainer.innerHTML += `
-            <div class="imageCardContainer">
-              <div class="imageCardMain">
-                <img src="${image.largeImageURL}" class="imageCardImg" alt='something'>
-                <div class="hoverEffectContainer">
-                  <div class="hoverItems">
-                    <p>tags: ${image.tags}</p>
-                  </div>
-                </div>
-              </div>
-            </div>`;
-        // Add image data to the array
+        addImageToColumn(image);
         dataArray.push(image);
       });
+
       // Then setup the modals
       setupModals();
     }
+    // Reset each search
+    currentPage = 1;
   } catch (error) {
     console.error("Error fetching data:", error);
     resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
@@ -215,27 +234,17 @@ window.onload = async () => {
     btns.forEach((button) => {
       button.addEventListener("click", () => {
         searchQuery(button.textContent); // Pass the text content
+
+        searchInput.value = button.textContent; // Change the input text
       });
     });
 
-    resultContainer.innerHTML = "";
-    dataArray = [];
+    dataArray = []; // Reset dataArray
 
     randomImages.forEach((image) => {
-      resultContainer.innerHTML += `
-          <div class="imageCardContainer">
-            <div class="imageCardMain">
-              <img src="${image.largeImageURL}" class="imageCardImg" alt="something">
-              <div class="hoverEffectContainer">
-                <div class="hoverItems">
-                  <p>tags: ${image.tags}</p>
-                </div>
-              </div>
-            </div>
-          </div>`;
+      addImageToColumn(image);
       dataArray.push(image);
     });
-
     setupModals();
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -246,9 +255,10 @@ window.onload = async () => {
 // On call, call the server and load more images from the search result
 const loadMoreImages = async () => {
   const currentQuery = searchBar.value;
+  currentPage += 1;
   try {
     const response = await fetch(
-      `http://localhost:3000/image?q=${currentQuery}`
+      `http://localhost:3000/image?q=${currentQuery}&page=${currentPage}`
     );
     if (!response.ok) {
       resultContainer.innerHTML = "";
@@ -256,22 +266,17 @@ const loadMoreImages = async () => {
     }
     const data = await response.json();
 
+    if (data.hits.length === 0) {
+      console.log("No more images available.");
+    }
+
     data.hits.forEach((image) => {
-      resultContainer.innerHTML += `
-          <div class="imageCardContainer">
-            <div class="imageCardMain">
-              <img src="${image.largeImageURL}" class="imageCardImg" alt="something">
-              <div class="hoverEffectContainer">
-                <div class="hoverItems">
-                  <p>tags: ${image.tags}</p>
-                </div>
-              </div>
-            </div>
-          </div>`;
+      addImageToColumn(image);
       dataArray.push(image);
     });
 
     setupModals();
+    console.log(`Fetching page ${currentPage}`);
   } catch (error) {
     console.error("Error fetching data:", error);
     resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";

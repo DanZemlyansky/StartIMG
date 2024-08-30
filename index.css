@@ -156,6 +156,7 @@ body {
   width: 300px;
   border-radius: 8px;
   overflow: hidden;
+   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
 }
 
@@ -368,4 +369,21 @@ body {
   #searchBarContainer input#searchBar {
     width: 100%;
   }
+
+  .headerImg{
+    width: 40px;
+    height: 40px;
+  }
+
+  #searchForm{
+    width: 80%;
+  }
+}
+
+
+.column{
+  gap: 0.5rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
