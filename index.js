@@ -189,7 +189,6 @@ modalCloseBtn.addEventListener("click", closeModal);
 
 const openModal = (item) => {
   modalContainer.style.display = "flex";
-  console.log(item);
 
   const modalContent = modalContainer.querySelector(".modalContent");
   modalContent.innerHTML = `
@@ -276,7 +275,6 @@ const loadMoreImages = async () => {
     });
 
     setupModals();
-    console.log(`Fetching page ${currentPage}`);
   } catch (error) {
     console.error("Error fetching data:", error);
     resultContainer.innerHTML = "<p>Failed to load data. Please try again.</p>";
